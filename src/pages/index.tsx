@@ -1,10 +1,13 @@
 /** @format */
 
+import Filters from "@/components/Filters";
 import JobCard from "@/components/JDCard";
 import useFetchJobData from "@/hooks/useFetch";
+import { useFilters } from "@/hooks/useFilters";
 import useScroll from "@/hooks/useScroll";
 import { IJob } from "@/types";
 import { LIMIT } from "@/utils/constants";
+import { useRouter } from "next/router";
 import { createRef, useEffect, useState } from "react";
 
 export default function Home() {
@@ -12,6 +15,9 @@ export default function Home() {
 	const [dataToShow, setDataToShow] = useState<IJob[] | []>([]);
 	const [offSet, setOffSet] = useState<number>(0);
 	const { fetchJobs, jdData, jdLoading } = useFetchJobData();
+	const { handleFilter } = useFilters();
+
+	const router = useRouter();
 
 	useScroll(divRef, () => {
 		const newOffSet = offSet + LIMIT;
@@ -26,35 +32,29 @@ export default function Home() {
 		}
 	}, [jdData]);
 
+	useEffect(() => {
+		if (Object.keys(router?.query) && dataToShow.length > 0) {
+			const arr = handleFilter(dataToShow);
+			setDataToShow([...arr]);
+		}
+	}, [router?.query]);
+
 	if (dataToShow?.length === 0 && jdLoading) return <div> Loading....</div>;
 
 	return (
-		<div
-			style={{
-				height: "100vh",
-				width: "100vw",
-				border: "1px solid black",
-			}}
-		>
-			{dataToShow && (
-				<div
-					ref={divRef}
-					style={{
-						maxHeight: "500px",
-						overflowY: "auto",
-						margin: "5% 20%",
-						padding: "2%",
-						display: "flex",
-						flexDirection: "column",
-						gap: "1rem",
-					}}
-				>
-					{dataToShow?.map((jd) => (
-						<JobCard {...jd} />
-					))}
-					{jdLoading && <div style={{ marginTop: "1rem" }}>Loading.....</div>}
-				</div>
-			)}
-		</div>
+		<>
+			<div className="body_container">
+				<Filters />
+				{!jdLoading && dataToShow.length === 0 && <div>No jobs to show</div>}
+				{dataToShow && (
+					<div className="jobPosts_container" ref={divRef}>
+						{dataToShow?.map((jd) => (
+							<JobCard {...jd} />
+						))}
+						{jdLoading && <div className="loading_container">Loading.....</div>}
+					</div>
+				)}
+			</div>
+		</>
 	);
 }

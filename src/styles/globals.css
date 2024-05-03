@@ -1,13 +1,89 @@
 /** @format */
 
+:root {
+	--text-dark: #404040;
+}
+
 body {
 	margin: 0;
 	padding: 0;
 	height: 100vh;
-	width: 100vw;
+	max-width: 100vw;
 }
+
+.body_container {
+	margin: 2% 10%;
+	max-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+}
+
+.filters_container {
+	min-height: 10vh;
+	border: 1px solid red;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+}
+
+.jobPosts_container {
+	overflow-y: auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	gap: 3rem;
+	border: 1px solid red;
+	min-height: 80vh;
+	max-height: 80vh;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1rem 10%;
+}
+
+/* -------- card ------- */
 
 .card_container {
 	border: 1px solid red;
-	min-height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: start;
+	min-height: 500px;
+	max-height: 500px;
+	width: 28%;
+	padding: 1rem;
+	border-radius: 4px;
+	box-sizing: border-box;
+	gap: 0.5rem;
+}
+
+.title {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	width: 100%;
+	color: var(--text-dark);
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+.jd_details {
+	display: flex;
+	flex: 1;
+	line-clamp: 8;
+	max-height: 300px;
+	overflow: hidden;
+}
+
+.loading_container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 }
