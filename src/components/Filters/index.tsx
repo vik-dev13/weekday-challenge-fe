@@ -74,7 +74,7 @@ export default function Filters(props: IFiltersProps) {
 					id="demo-simple-select"
 					label="Min Experience"
 					style={{ minWidth: "100%" }}
-					name="minBase"
+					name="isRemote"
 					value={router?.query?.isRemote || ""}
 					onChange={(e) =>
 						handleChange(e as React.ChangeEvent<HTMLInputElement>)
