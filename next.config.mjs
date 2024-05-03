@@ -4,7 +4,7 @@
  */
 
 const nextConfig = {
-	reactStrictMode: false,
+	reactStrictMode: true,
 	images: {
 		domains: ["logo.clearbit.com"],
 	},
