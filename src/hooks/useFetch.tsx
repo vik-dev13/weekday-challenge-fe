@@ -14,7 +14,7 @@ export default function useFetchJobData() {
 		setError("");
 		setLoading(true);
 		const body = JSON.stringify({
-			limit: limit ?? 10,
+			limit: limit ?? 9,
 			offset: offset ?? 0,
 		});
 		const myHeaders = new Headers();

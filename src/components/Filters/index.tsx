@@ -21,18 +21,18 @@ export default function Filters(props: IFiltersProps) {
 
 	const handleClearAll = () => {
 		const { pathname } = router;
-		console.log("pathname---", pathname);
 		router.push(pathname);
 	};
 	return (
 		<div className="filters_container">
-			<div style={{ minWidth: "20%", border: "1px solid red" }}>
+			<div style={{ minWidth: "20%" }}>
 				<InputLabel id="demo-simple-select-label">Min Exp</InputLabel>
 				<Select
 					id="demo-simple-select"
 					label="Min Experience"
 					style={{ minWidth: "100%" }}
 					name="minExp"
+					value={router?.query?.minExp || ""}
 					onChange={(e) =>
 						handleChange(e as React.ChangeEvent<HTMLInputElement>)
 					}
@@ -42,13 +42,14 @@ export default function Filters(props: IFiltersProps) {
 					))}
 				</Select>
 			</div>
-			<div style={{ minWidth: "20%", border: "1px solid red" }}>
+			<div style={{ minWidth: "20%" }}>
 				<InputLabel id="demo-simple-select-label">Location</InputLabel>
 				<Select
 					id="demo-simple-select"
 					label="Min Experience"
 					style={{ minWidth: "100%" }}
 					name="location"
+					value={router?.query?.location || ""}
 					onChange={(e) =>
 						handleChange(e as React.ChangeEvent<HTMLInputElement>)
 					}
@@ -59,13 +60,14 @@ export default function Filters(props: IFiltersProps) {
 					<MenuItem value={"chennai"}>Chennai</MenuItem>
 				</Select>
 			</div>
-			<div style={{ minWidth: "20%", border: "1px solid red" }}>
+			<div style={{ minWidth: "20%" }}>
 				<InputLabel id="demo-simple-select-label">Type</InputLabel>
 				<Select
 					id="demo-simple-select"
 					label="Min Experience"
 					style={{ minWidth: "100%" }}
 					name="isRemote"
+					value={router?.query?.isRemote || ""}
 					onChange={(e) =>
 						handleChange(e as React.ChangeEvent<HTMLInputElement>)
 					}
@@ -74,13 +76,14 @@ export default function Filters(props: IFiltersProps) {
 					<MenuItem value={"onSite"}>On Site</MenuItem>
 				</Select>
 			</div>
-			<div style={{ minWidth: "20%", border: "1px solid red" }}>
+			<div style={{ minWidth: "20%" }}>
 				<InputLabel id="demo-simple-select-label">Role</InputLabel>
 				<Select
 					id="demo-simple-select"
-					label="Min Experience"
+					label="Role"
 					style={{ minWidth: "100%" }}
 					name="role"
+					value={router?.query?.role || ""}
 					onChange={(e) =>
 						handleChange(e as React.ChangeEvent<HTMLInputElement>)
 					}

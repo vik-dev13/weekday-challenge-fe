@@ -1,5 +1,7 @@
 /** @format */
 import { IJob } from "@/types";
+import { regularizeWords } from "@/utils/functions";
+import { Button } from "@mui/material";
 import * as React from "react";
 
 export default function JobCard(props: IJob) {
@@ -13,27 +15,54 @@ export default function JobCard(props: IJob) {
 		minExp,
 		maxExp,
 	} = props;
+
+	const [isViewMore, setIsViewMore] = React.useState(false);
 	return (
 		<div className="card_container" key={jdUid}>
-			<div className="title">{jobRole}</div>
-			<div>{location}</div>
+			<div className="upper_div">
+				<div className="title">{regularizeWords(jobRole)}</div>
+				<div className="location">{regularizeWords(location)}</div>
 
-			{(maxJdSalary || minJdSalary) && (
-				<div>
-					Salary: {minJdSalary ?? ""} {minJdSalary && "-"} {maxJdSalary ?? ""}{" "}
-					LPA
+				{(maxJdSalary || minJdSalary) && (
+					<div className="salary">
+						Salary:{" "}
+						<span>
+							{minJdSalary ?? ""} {minJdSalary && "-"} {maxJdSalary ?? ""}
+						</span>
+						LPA
+					</div>
+				)}
+
+				<div
+					className="jd_details"
+					style={{ overflow: isViewMore ? "auto" : "hidden" }}
+				>
+					<p>
+						{!isViewMore
+							? jobDetailsFromCompany.slice(0, 250)
+							: jobDetailsFromCompany}
+					</p>
+					<span onClick={() => setIsViewMore(!isViewMore)}>
+						{isViewMore ? "View Less" : "View More"}
+					</span>
 				</div>
-			)}
-
-			<div className="jd_details">
-				<p>{jobDetailsFromCompany}</p>
 			</div>
 
-			{(minExp || maxExp) && (
-				<div>
-					Experience: {minExp ?? ""} {minExp && "-"} {maxExp ?? ""} years
+			<div className="lower_div">
+				{(minExp || maxExp) && (
+					<div>
+						Experience: {minExp ?? ""} {minExp && "-"} {maxExp ?? ""} years
+					</div>
+				)}
+				<div style={{ width: "100%" }}>
+					<Button
+						variant="contained"
+						style={{ backgroundColor: "#63d96c", width: "100%" }}
+					>
+						Apply
+					</Button>
 				</div>
-			)}
+			</div>
 		</div>
 	);
 }
