@@ -5,12 +5,12 @@ import * as React from "react";
 import { useFilters } from "./useFilters";
 import { useDispatch } from "react-redux";
 import { addJdList } from "@/redux/jdListReducer";
+import { addJdToShowList } from "@/redux/jdToShow.reducer";
 
 export default function useFetchJobData() {
 	const [jobsList, setJobsList] = React.useState<IJob[] | []>([]);
 	const [loading, setLoading] = React.useState<boolean>(false);
 	const [error, setError] = React.useState<string>("");
-	const { handleFilter } = useFilters();
 	const dispatch = useDispatch();
 
 	const fetchJobs = (limit?: number, offset?: number) => {
@@ -35,13 +35,6 @@ export default function useFetchJobData() {
 			.then((response) => response.json())
 			.then((result: { jdList: IJob[]; totalCount: number }) => {
 				dispatch(addJdList(result?.jdList));
-				// const filteredJobs = handleFilter(result?.jdList);
-				// if (filteredJobs?.length === 0) {
-				// 	setJobsList( result?.jdList );
-
-				// } else {
-				// 	setJobsList(filteredJobs);
-				// }
 				setLoading(false);
 			})
 			.catch((error) => {
@@ -50,10 +43,6 @@ export default function useFetchJobData() {
 				setLoading(false);
 			});
 	};
-
-	// React.useEffect(() => {
-	// 	fetchJobs();
-	// }, []);
 
 	return {
 		fetchJobs,

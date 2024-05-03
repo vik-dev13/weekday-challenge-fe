@@ -46,7 +46,7 @@ export const useFilters = () => {
 		console.log("query==", queryArr);
 		if (queryArr.length === 0) return [];
 		let jobsArr: IJob[] = [...jobs];
-		// check for minExp
+
 		if (queryArr.includes("minExp")) {
 			const filteredJdList = filterByMinExp(jobsArr);
 			jobsArr = [...filteredJdList];

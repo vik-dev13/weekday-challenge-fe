@@ -5,10 +5,12 @@ export interface IJob {
 	jdLink: string;
 	jobDetailsFromCompany: string;
 	maxJdSalary: number;
-	minJdSalary: any;
+	minJdSalary: number;
 	salaryCurrencyCode: string;
 	location: string;
 	minExp: number;
 	maxExp: number;
 	jobRole: string;
+	companyName: string;
+	logoUrl: string;
 }

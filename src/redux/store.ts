@@ -2,10 +2,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import jdListReducer from "./jdListReducer";
+import jdToShowReducer from "./jdToShow.reducer";
 
 export const store = configureStore({
 	reducer: {
 		jdList: jdListReducer,
+		jdToShow: jdToShowReducer,
 	},
 });
 

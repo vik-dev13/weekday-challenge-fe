@@ -5,18 +5,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IJob[] | [] = [];
-
-export const jdListSlice = createSlice({
-	name: "jdList",
+export const jdsToShowSlice = createSlice({
+	name: "jdsToShow",
 	initialState,
 	reducers: {
-		addJdList: (state: IJob[], action: PayloadAction<IJob[]>) => {
+		addJdToShowList: (state: IJob[], action: PayloadAction<IJob[]>) => {
 			// state = [...state, ...action.payload];
-			state.push(...action?.payload);
+			return [...action?.payload];
 		},
 	},
 });
 
-export const { addJdList } = jdListSlice.actions;
+export const { addJdToShowList } = jdsToShowSlice.actions;
 
-export default jdListSlice.reducer;
+export default jdsToShowSlice.reducer;

@@ -1,10 +1,14 @@
 /** @format */
 
 import { fetchJobs } from "@/apis";
+import useDataToShow from "@/hooks/useDataToShow";
 import useFetchJobData from "@/hooks/useFetch";
+import { useFilters } from "@/hooks/useFilters";
+import { addJdToShowList } from "@/redux/jdToShow.reducer";
 import { Button, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export interface IFiltersProps {}
 
@@ -18,7 +22,6 @@ export default function Filters(props: IFiltersProps) {
 			pathname: router.pathname,
 			query: { ...router.query, [name]: value },
 		};
-
 		router.push(url, undefined, { shallow: true });
 	};
 
@@ -27,6 +30,7 @@ export default function Filters(props: IFiltersProps) {
 		fetchJobs();
 		router.push(pathname);
 	};
+
 	return (
 		<div className="filters_container">
 			<div style={{ minWidth: "20%" }}>
@@ -60,7 +64,7 @@ export default function Filters(props: IFiltersProps) {
 				>
 					<MenuItem value={"delhi ncr"}>Delhi Ncr</MenuItem>
 					<MenuItem value={"mumbai"}>Mumbai</MenuItem>
-					<MenuItem value={"delhi ncr"}>Delhi Ncr</MenuItem>
+					<MenuItem value={"bangalore"}>Bangalore</MenuItem>
 					<MenuItem value={"chennai"}>Chennai</MenuItem>
 				</Select>
 			</div>
@@ -70,7 +74,7 @@ export default function Filters(props: IFiltersProps) {
 					id="demo-simple-select"
 					label="Min Experience"
 					style={{ minWidth: "100%" }}
-					name="isRemote"
+					name="minBase"
 					value={router?.query?.isRemote || ""}
 					onChange={(e) =>
 						handleChange(e as React.ChangeEvent<HTMLInputElement>)
