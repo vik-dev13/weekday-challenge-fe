@@ -33,6 +33,10 @@ export default function Home() {
 	}, [jdData]);
 
 	useEffect(() => {
+		fetchJobs();
+	}, []);
+
+	useEffect(() => {
 		if (Object.keys(router?.query) && dataToShow.length > 0) {
 			const arr = handleFilter(dataToShow);
 			setDataToShow([...arr]);

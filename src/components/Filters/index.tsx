@@ -1,5 +1,7 @@
 /** @format */
 
+import { fetchJobs } from "@/apis";
+import useFetchJobData from "@/hooks/useFetch";
 import { Button, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -8,6 +10,7 @@ export interface IFiltersProps {}
 
 export default function Filters(props: IFiltersProps) {
 	const router = useRouter();
+	const { fetchJobs } = useFetchJobData();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		let { name, value } = e.target;
@@ -21,6 +24,7 @@ export default function Filters(props: IFiltersProps) {
 
 	const handleClearAll = () => {
 		const { pathname } = router;
+		fetchJobs();
 		router.push(pathname);
 	};
 	return (

@@ -3,12 +3,15 @@
 import { IJob } from "@/types";
 import * as React from "react";
 import { useFilters } from "./useFilters";
+import { useDispatch } from "react-redux";
+import { addJdList } from "@/redux/jdListReducer";
 
 export default function useFetchJobData() {
 	const [jobsList, setJobsList] = React.useState<IJob[] | []>([]);
 	const [loading, setLoading] = React.useState<boolean>(false);
 	const [error, setError] = React.useState<string>("");
 	const { handleFilter } = useFilters();
+	const dispatch = useDispatch();
 
 	const fetchJobs = (limit?: number, offset?: number) => {
 		setError("");
@@ -31,12 +34,14 @@ export default function useFetchJobData() {
 		)
 			.then((response) => response.json())
 			.then((result: { jdList: IJob[]; totalCount: number }) => {
-				const filteredJobs = handleFilter(result?.jdList);
-				if (filteredJobs?.length === 0) {
-					setJobsList(result?.jdList);
-				} else {
-					setJobsList(filteredJobs);
-				}
+				dispatch(addJdList(result?.jdList));
+				// const filteredJobs = handleFilter(result?.jdList);
+				// if (filteredJobs?.length === 0) {
+				// 	setJobsList( result?.jdList );
+
+				// } else {
+				// 	setJobsList(filteredJobs);
+				// }
 				setLoading(false);
 			})
 			.catch((error) => {
@@ -46,9 +51,9 @@ export default function useFetchJobData() {
 			});
 	};
 
-	React.useEffect(() => {
-		fetchJobs();
-	}, []);
+	// React.useEffect(() => {
+	// 	fetchJobs();
+	// }, []);
 
 	return {
 		fetchJobs,
