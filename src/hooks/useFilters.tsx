@@ -25,12 +25,10 @@ export const useFilters = () => {
 	const filterByRemoteOrOnsite = (jobs: IJob[]): IJob[] => {
 		const { isRemote } = router.query;
 		const arr: IJob[] = jobs.filter((job) => {
-			if (isRemote === "remote") {
-				return job.location === "remote";
+			if (isRemote === "remote" && job.location === "remote") {
+				return job;
 			}
-			if (isRemote === "onsite") {
-				return job.location !== "remote";
-			}
+			return job;
 		});
 		return arr;
 	};

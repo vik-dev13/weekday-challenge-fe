@@ -8,7 +8,6 @@ import { addJdList } from "@/redux/jdListReducer";
 import { addJdToShowList } from "@/redux/jdToShow.reducer";
 
 export default function useFetchJobData() {
-	const [jobsList, setJobsList] = React.useState<IJob[] | []>([]);
 	const [loading, setLoading] = React.useState<boolean>(false);
 	const [error, setError] = React.useState<string>("");
 	const dispatch = useDispatch();
@@ -34,6 +33,7 @@ export default function useFetchJobData() {
 		)
 			.then((response) => response.json())
 			.then((result: { jdList: IJob[]; totalCount: number }) => {
+				// once data is fetched it is saved to redux store
 				dispatch(addJdList(result?.jdList));
 				setLoading(false);
 			})
@@ -46,7 +46,6 @@ export default function useFetchJobData() {
 
 	return {
 		fetchJobs,
-		jdData: jobsList,
 		jdLoading: loading,
 		jdError: error,
 	};

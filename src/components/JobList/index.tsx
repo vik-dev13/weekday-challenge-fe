@@ -15,9 +15,10 @@ export interface IJobListProps {}
 
 export default function JobList(props: IJobListProps) {
 	const divRef = React.createRef<HTMLDivElement>();
-	const { fetchJobs, jdData, jdLoading } = useFetchJobData();
+	const { fetchJobs, jdLoading } = useFetchJobData();
 	const [offSet, setOffSet] = React.useState<number>(0);
 	const jdToShow = useSelector((state: RootState) => state?.jdToShow);
+
 	useDataToShow();
 
 	useScroll(divRef, () => {
@@ -32,13 +33,12 @@ export default function JobList(props: IJobListProps) {
 	if (jdToShow?.length === 0 && jdLoading)
 		return (
 			<div>
-				{" "}
 				<CircularProgress />
 			</div>
 		);
+	if (!jdLoading && jdToShow.length === 0) return <div>No jobs to show</div>;
 	return (
 		<div>
-			{/* {!jdLoading && dataToShow.length === 0 && <div>No jobs to show</div>} */}
 			{jdToShow && (
 				<div className="jobPosts_container" ref={divRef}>
 					{jdToShow?.map((jd: IJob) => (
