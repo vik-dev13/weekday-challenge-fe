@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { IJob } from "@/types";
 import { RootState } from "@/redux/store";
 import useDataToShow from "@/hooks/useDataToShow";
+import { CircularProgress } from "@mui/material";
 
 export interface IJobListProps {}
 
@@ -28,7 +29,13 @@ export default function JobList(props: IJobListProps) {
 		fetchJobs();
 	}, []);
 
-	if (jdToShow?.length === 0 && jdLoading) return <div> Loading....</div>;
+	if (jdToShow?.length === 0 && jdLoading)
+		return (
+			<div>
+				{" "}
+				<CircularProgress />
+			</div>
+		);
 	return (
 		<div>
 			{/* {!jdLoading && dataToShow.length === 0 && <div>No jobs to show</div>} */}
@@ -37,7 +44,11 @@ export default function JobList(props: IJobListProps) {
 					{jdToShow?.map((jd: IJob) => (
 						<JobCard {...jd} />
 					))}
-					{jdLoading && <div className="loading_container">Loading.....</div>}
+					{jdLoading && (
+						<div className="loading_container">
+							<CircularProgress />
+						</div>
+					)}
 				</div>
 			)}
 		</div>
