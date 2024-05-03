@@ -5,6 +5,9 @@
 
 const nextConfig = {
 	reactStrictMode: false,
+	images: {
+		domains: ["logo.clearbit.com"],
+	},
 };
 
 export default nextConfig;
